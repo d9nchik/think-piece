@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import CurrentUser from './CurrentUser';
 import SignInAndSignUp from './SignInAndSignUp';
 
-const Authentication = ({ user, loading }) => {
-  if (loading) return null;
+import { UserContext } from '../providers/UserProvider';
 
-  return <div>{user ? <CurrentUser /> : <SignInAndSignUp />}</div>;
+const Authentication = () => {
+  const { user, loading } = useContext(UserContext);
+  if (loading) {
+    console.log('loading');
+    return null;
+  }
+  console.log('show', { user });
+
+  return <div>{user ? <CurrentUser {...user} /> : <SignInAndSignUp />}</div>;
 };
 
 export default Authentication;
